@@ -79,14 +79,14 @@ user_files = {
     "/usermod5.py": b"print('in usermod5')",
     "/usermod6.py": b"print('in usermod6')",
 }
-os.mount(UserFS(user_files), "/userfs")
+os.mount(UserFS(user_files), "/Ram Disk")
 
 # open and read a file
-f = open("/userfs/data.txt")
+f = open("/Ram Disk/data.txt")
 print(f.read())
 
 # import files from the user filesystem
-sys.path.append("/userfs")
+sys.path.append("/Ram Disk")
 import usermod1
 
 # import a .py file with a syntax error (file should be closed on error)
@@ -110,5 +110,5 @@ UserFile.buffer_size = 1024
 import usermod6
 
 # unmount and undo path addition
-os.umount("/userfs")
+os.umount("/Ram Disk")
 sys.path.pop()

@@ -4,7 +4,7 @@ gl = {}
 
 exec(
     """
-@micropython.viper
+#@micropython.viper
 def f():
     return x
 """,

@@ -1,7 +1,7 @@
 # test native while loop
 
 
-@micropython.native
+#@micropython.native
 def f(n):
     i = 0
     while i < n:

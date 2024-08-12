@@ -2,7 +2,7 @@
 
 
 # simple generator with yield and return
-@micropython.native
+#@micropython.native
 def gen1(x):
     yield x
     yield x + 1
@@ -19,7 +19,7 @@ except StopIteration as e:
 
 
 # using yield from
-@micropython.native
+#@micropython.native
 def gen2(x):
     yield from range(x)
 
@@ -28,7 +28,7 @@ print(list(gen2(3)))
 
 
 # catching an exception from .throw()
-@micropython.native
+#@micropython.native
 def gen3():
     try:
         yield 1
@@ -44,7 +44,7 @@ print(g.throw(ValueError(42)))
 
 
 # responding to .close()
-@micropython.native
+#@micropython.native
 def gen4():
     try:
         yield 1

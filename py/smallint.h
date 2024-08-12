@@ -71,5 +71,8 @@
 bool mp_small_int_mul_overflow(mp_int_t x, mp_int_t y);
 mp_int_t mp_small_int_modulo(mp_int_t dividend, mp_int_t divisor);
 mp_int_t mp_small_int_floor_divide(mp_int_t num, mp_int_t denom);
+#if MICROPY_SMALL_INT_MUL_HELPER
+mp_int_t mp_small_int_multiply(mp_int_t num, mp_int_t mulp);
+#endif
 
 #endif // MICROPY_INCLUDED_PY_SMALLINT_H

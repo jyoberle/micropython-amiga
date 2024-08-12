@@ -10,7 +10,7 @@ if not hasattr(f, "__name__"):
     raise SystemExit
 
 
-@micropython.native
+#@micropython.native
 def native_f():
     pass
 

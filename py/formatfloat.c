@@ -34,6 +34,8 @@
 #include <math.h>
 #include "py/formatfloat.h"
 
+#include <stdio.h>
+
 /***********************************************************************
 
   Routine for converting a arbitrary floating

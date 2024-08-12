@@ -32,6 +32,23 @@
 #include "py/parsenum.h"
 #include "py/smallint.h"
 
+union ieee_double
+{
+	double			value;
+	unsigned long	raw[2];
+};
+
+STATIC double inf(const char *unused_tagp)
+{
+	union ieee_double x;
+
+	/* Exponent = 2047 and fraction = 0.0 -> infinity */
+	x.raw[0] = 0x7ff00000;
+	x.raw[1] = 0x00000000;
+
+	return(x.value);
+}
+
 #if MICROPY_PY_BUILTINS_FLOAT
 #include <math.h>
 #endif
@@ -256,7 +273,7 @@ parse_start:
         if (str + 2 < top && (str[1] | 0x20) == 'n' && (str[2] | 0x20) == 'f') {
             // inf
             str += 3;
-            dec_val = (mp_float_t)INFINITY;
+            dec_val = MICROPY_FLOAT_C_FUN(inf)("");
             if (str + 4 < top && (str[0] | 0x20) == 'i' && (str[1] | 0x20) == 'n' && (str[2] | 0x20) == 'i' && (str[3] | 0x20) == 't' && (str[4] | 0x20) == 'y') {
                 // infinity
                 str += 5;

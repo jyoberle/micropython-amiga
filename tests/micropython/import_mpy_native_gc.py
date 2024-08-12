@@ -72,8 +72,8 @@ if sys_implementation_mpy not in features0_file_contents:
 user_files = {"/features0.mpy": features0_file_contents[sys_implementation_mpy]}
 
 # Create and mount a user filesystem.
-os.mount(UserFS(user_files), "/userfs")
-sys.path.append("/userfs")
+os.mount(UserFS(user_files), "/Ram Disk")
+sys.path.append("/Ram Disk")
 
 # Import the native function.
 gc.collect()
@@ -93,5 +93,5 @@ for i in range(1000):
 print(factorial(10))
 
 # Unmount and undo path addition.
-os.umount("/userfs")
+os.umount("/Ram Disk")
 sys.path.pop()

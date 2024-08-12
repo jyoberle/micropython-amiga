@@ -344,6 +344,9 @@ const mp_fun_table_t mp_fun_table = {
     &mp_stream_readinto_obj,
     &mp_stream_unbuffered_readline_obj,
     &mp_stream_write_obj,
+    #if MICROPY_SMALL_INT_MUL_HELPER
+    mp_small_int_multiply,
+    #endif
 };
 
 #elif MICROPY_EMIT_NATIVE && MICROPY_DYNAMIC_COMPILER

@@ -113,6 +113,9 @@ PY_CORE_O_BASENAME = $(addprefix py/,\
 	emitnxtensa.o \
 	emitinlinextensa.o \
 	emitnxtensawin.o \
+	asmm68k.o \
+	emitnm68k.o \
+	emitinlinem68k.o \
 	formatfloat.o \
 	parsenumbase.o \
 	parsenum.o \
@@ -229,7 +232,7 @@ MPCONFIGPORT_MK = $(wildcard mpconfigport.mk)
 # See more information about this process in docs/develop/qstr.rst.
 $(HEADER_BUILD)/qstrdefs.generated.h: $(PY_QSTR_DEFS) $(QSTR_DEFS) $(QSTR_DEFS_COLLECTED) $(PY_SRC)/makeqstrdata.py mpconfigport.h $(MPCONFIGPORT_MK) $(PY_SRC)/mpconfig.h | $(HEADER_BUILD)
 	$(ECHO) "GEN $@"
-	$(Q)$(CAT) $(PY_QSTR_DEFS) $(QSTR_DEFS) $(QSTR_DEFS_COLLECTED) | $(SED) 's/^Q(.*)/"&"/' | $(CPP) $(CFLAGS) - | $(SED) 's/^\"\(Q(.*)\)\"/\1/' > $(HEADER_BUILD)/qstrdefs.preprocessed.h
+	$(Q)$(CAT) $(PY_QSTR_DEFS) $(QSTR_DEFS) $(QSTR_DEFS_COLLECTED) | $(SED) "s/^Q(.*)/[\x22]&[\x22]/" | $(CPP) $(CFLAGS) - | $(SED) "s/^\[\x22]\(Q(.*)\)\[\x22]/\1/" > $(HEADER_BUILD)/qstrdefs.preprocessed.h
 	$(Q)$(PYTHON) $(PY_SRC)/makeqstrdata.py $(HEADER_BUILD)/qstrdefs.preprocessed.h > $@
 
 $(HEADER_BUILD)/compressed.data.h: $(HEADER_BUILD)/compressed.collected

@@ -31,7 +31,7 @@
 #define MICROPY_PERSISTENT_CODE_SAVE (1)
 
 #ifndef MICROPY_PERSISTENT_CODE_SAVE_FILE
-#if defined(__i386__) || defined(__x86_64__) || defined(_WIN32) || defined(__unix__) || defined(__APPLE__)
+#if defined(__i386__) || defined(__x86_64__) || defined(_WIN32) || defined(__unix__) || defined(__APPLE__) || defined(__m68k__)
 #define MICROPY_PERSISTENT_CODE_SAVE_FILE (1)
 #else
 #define MICROPY_PERSISTENT_CODE_SAVE_FILE (0)
@@ -46,6 +46,9 @@
 #define MICROPY_EMIT_XTENSA         (1)
 #define MICROPY_EMIT_INLINE_XTENSA  (1)
 #define MICROPY_EMIT_XTENSAWIN      (1)
+#define MICROPY_EMIT_M68K           (1)
+#define MICROPY_EMIT_INLINE_M68K    (1)
+#define MICROPY_SMALL_INT_MUL_HELPER    (0)
 
 #define MICROPY_DYNAMIC_COMPILER    (1)
 #define MICROPY_COMP_CONST_FOLDING  (1)

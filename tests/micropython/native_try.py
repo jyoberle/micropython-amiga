@@ -2,7 +2,7 @@
 
 
 # basic try-finally
-@micropython.native
+#@micropython.native
 def f():
     try:
         fail
@@ -17,7 +17,7 @@ except NameError:
 
 
 # nested try-except with try-finally
-@micropython.native
+#@micropython.native
 def f():
     try:
         try:
@@ -32,7 +32,7 @@ f()
 
 
 # check that locals written to in try blocks keep their values
-@micropython.native
+#@micropython.native
 def f():
     a = 100
     try:

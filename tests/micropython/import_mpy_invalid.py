@@ -52,8 +52,8 @@ user_files = {
 }
 
 # create and mount a user filesystem
-os.mount(UserFS(user_files), "/userfs")
-sys.path.append("/userfs")
+os.mount(UserFS(user_files), "/Ram Disk")
+sys.path.append("/Ram Disk")
 
 # import .mpy files from the user filesystem
 for i in range(len(user_files)):
@@ -64,5 +64,5 @@ for i in range(len(user_files)):
         print(mod, "ValueError", er)
 
 # unmount and undo path addition
-os.umount("/userfs")
+os.umount("/Ram Disk")
 sys.path.pop()

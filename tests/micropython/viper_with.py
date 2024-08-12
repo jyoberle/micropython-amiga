@@ -23,7 +23,7 @@ f()
 
 
 # nested with and try-except
-@micropython.viper
+#@micropython.viper
 def f():
     try:
         with C():

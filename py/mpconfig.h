@@ -404,8 +404,23 @@
 #define MICROPY_EMIT_XTENSAWIN (0)
 #endif
 
+// Whether to emit m68000 native code
+#ifndef MICROPY_EMIT_M68K
+#define MICROPY_EMIT_M68K (0)
+#endif
+
+// Whether to enable the m68000 inline assembler
+#ifndef MICROPY_EMIT_INLINE_M68K
+#define MICROPY_EMIT_INLINE_M68K (0)
+#endif
+
+// Add a multiply helper function for CPUs that don't have 32-bit multply
+#ifndef MICROPY_SMALL_INT_MUL_HELPER
+#define MICROPY_SMALL_INT_MUL_HELPER (0)
+#endif
+
 // Convenience definition for whether any native emitter is enabled
-#define MICROPY_EMIT_NATIVE (MICROPY_EMIT_X64 || MICROPY_EMIT_X86 || MICROPY_EMIT_THUMB || MICROPY_EMIT_ARM || MICROPY_EMIT_XTENSA || MICROPY_EMIT_XTENSAWIN)
+#define MICROPY_EMIT_NATIVE (MICROPY_EMIT_X64 || MICROPY_EMIT_X86 || MICROPY_EMIT_THUMB || MICROPY_EMIT_ARM || MICROPY_EMIT_XTENSA || MICROPY_EMIT_XTENSAWIN || MICROPY_EMIT_M68K)
 
 // Some architectures cannot read byte-wise from executable memory.  In this case
 // the prelude for a native function (which usually sits after the machine code)
@@ -413,7 +428,7 @@
 #define MICROPY_EMIT_NATIVE_PRELUDE_SEPARATE_FROM_MACHINE_CODE (MICROPY_EMIT_XTENSAWIN)
 
 // Convenience definition for whether any inline assembler emitter is enabled
-#define MICROPY_EMIT_INLINE_ASM (MICROPY_EMIT_INLINE_THUMB || MICROPY_EMIT_INLINE_XTENSA)
+#define MICROPY_EMIT_INLINE_ASM (MICROPY_EMIT_INLINE_THUMB || MICROPY_EMIT_INLINE_XTENSA || MICROPY_EMIT_INLINE_M68K)
 
 // Convenience definition for whether any native or inline assembler emitter is enabled
 #define MICROPY_EMIT_MACHINE_CODE (MICROPY_EMIT_NATIVE || MICROPY_EMIT_INLINE_ASM)

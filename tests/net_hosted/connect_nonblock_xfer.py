@@ -1,7 +1,7 @@
 # test that socket.connect() on a non-blocking socket raises EINPROGRESS
 # and that an immediate write/send/read/recv does the right thing
 
-import sys, time, socket, errno, ssl
+import sys, time, socket, errno #, ssl
 
 isMP = sys.implementation.name == "micropython"
 
@@ -135,11 +135,11 @@ if __name__ == "__main__":
     # we can see EAGAIN/None (https://tools.ietf.org/html/rfc5737)
     print("--- Plain sockets to nowhere ---")
     test(socket.getaddrinfo("192.0.2.1", 80)[0][-1], False, False)
-    print("--- SSL sockets to nowhere ---")
+    #print("--- SSL sockets to nowhere ---")
     # this test fails with AXTLS because do_handshake=False blocks on first read/write and
     # there it times out until the connect is aborted
-    test(socket.getaddrinfo("192.0.2.1", 443)[0][-1], True, False)
+    #test(socket.getaddrinfo("192.0.2.1", 443)[0][-1], True, False) # SSL not yet implemented
     print("--- Plain sockets ---")
     test(socket.getaddrinfo("micropython.org", 80)[0][-1], False, True)
-    print("--- SSL sockets ---")
-    test(socket.getaddrinfo("micropython.org", 443)[0][-1], True, True)
+    #print("--- SSL sockets ---")
+    #test(socket.getaddrinfo("micropython.org", 443)[0][-1], True, True)  # SSL not yet implemented

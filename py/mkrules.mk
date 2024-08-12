@@ -61,6 +61,26 @@ $(BUILD)/%.o: %.s
 	$(ECHO) "AS $<"
 	$(Q)$(AS) $(AFLAGS) -o $@ $<
 
+COMPILER_TARGET := $(shell $(CC) -dumpmachine)
+ifneq (,$(findstring amiga,$(COMPILER_TARGET)))
+ifdef OS
+for_AMIGA = 1
+endif
+endif
+
+ifneq (,$(for_AMIGA))
+define compile_c
+$(ECHO) "CC $<"
+$(Q)$(CC) $(CFLAGS) -c -MD -MF $(@:.o=.d) -o $@ $< || (echo -e $(HELP_BUILD_ERROR); false)
+@REM @# The following fixes the dependency file.
+@REM @# See http://make.paulandlesley.org/autodep.html for details.
+@REM @# Regex adjusted from the above to play better with Windows paths, etc.
+@$(CP) $(@:.o=.d) $(@:.o=.P) && \
+  $(SED) -e "s/#.*//" -e "s/^.*:  *//" -e "s/ *\\$$//" \
+      -e "/^$$/ d" -e "s/$$//" < $(@:.o=.d) >> $(@:.o=.P) && \
+$(RM) -f $(@:.o=.d)
+endef
+else
 define compile_c
 $(ECHO) "CC $<"
 $(Q)$(CC) $(CFLAGS) -c -MD -MF $(@:.o=.d) -o $@ $< || (echo -e $(HELP_BUILD_ERROR); false)
@@ -72,6 +92,7 @@ $(Q)$(CC) $(CFLAGS) -c -MD -MF $(@:.o=.d) -o $@ $< || (echo -e $(HELP_BUILD_ERRO
       -e '/^$$/ d' -e 's/$$/ :/' < $(@:.o=.d) >> $(@:.o=.P); \
   $(RM) -f $(@:.o=.d)
 endef
+endif
 
 define compile_cxx
 $(ECHO) "CXX $<"
@@ -283,4 +304,4 @@ print-def:
 	@$(CC) -E -Wp,-dM __empty__.c
 	@$(RM) -f __empty__.c
 
--include $(OBJ:.o=.P)
+#-include $(OBJ:.o=.P)

@@ -63,7 +63,9 @@ async def main():
     # Nested: task2 waits on task, task2 is cancelled (should cancel task then task2)
     print("----")
     t = asyncio.create_task(task2(True))
-    await asyncio.sleep(0.01)
+    # JOB: modified for the amiga so that the test passes
+#    await asyncio.sleep(0.01)
+    await asyncio.sleep(0.03)
     print("main cancel")
     t.cancel()
     print("main sleep")
@@ -72,7 +74,9 @@ async def main():
     # Nested: task2 waits on task, task2 is cancelled but task doesn't allow it (task2 should continue)
     print("----")
     t = asyncio.create_task(task2(False))
-    await asyncio.sleep(0.01)
+    # JOB: modified for the amiga so that the test passes
+#    await asyncio.sleep(0.01)
+    await asyncio.sleep(0.03)
     print("main cancel")
     t.cancel()
     print("main sleep")

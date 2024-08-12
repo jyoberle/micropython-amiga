@@ -57,18 +57,18 @@ files = {
     "/test.py": "print(123)",
 }
 fs = Filesystem(files)
-os.mount(fs, "/test_mnt")
+os.mount(fs, "/Ram Disk")
 
 # Test execfile with a file that doesn't exist.
 try:
     import io, os
 
-    execfile("/test_mnt/noexist.py")
+    execfile("/Ram Disk/noexist.py")
 except OSError:
     print("OSError")
 
 # Test execfile with a file that does exist.
-execfile("/test_mnt/test.py")
+execfile("/Ram Disk/test.py")
 
 # Test that it only works with string arguments.
 try:

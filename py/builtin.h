@@ -45,9 +45,13 @@ mp_obj_t mp_vfs_open(size_t n_args, const mp_obj_t *args, mp_map_t *kwargs);
 
 MP_DECLARE_CONST_FUN_OBJ_KW(mp_vfs_open_obj);
 
+#if !MICROPY_OPTION_AMIGA
 static inline mp_import_stat_t mp_import_stat(const char *path) {
     return mp_vfs_import_stat(path);
 }
+#else
+mp_import_stat_t mp_import_stat(const char *path);
+#endif
 
 static inline mp_obj_t mp_builtin_open(size_t n_args, const mp_obj_t *args, mp_map_t *kwargs) {
     return mp_vfs_open(n_args, args, kwargs);

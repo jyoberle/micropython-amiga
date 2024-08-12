@@ -104,6 +104,7 @@ STATIC const emit_method_table_t *emit_native_table[] = {
     &emit_native_thumb_method_table,
     &emit_native_xtensa_method_table,
     &emit_native_xtensawin_method_table,
+    &emit_native_m68k_method_table,
 };
 
 #elif MICROPY_EMIT_NATIVE
@@ -120,6 +121,8 @@ STATIC const emit_method_table_t *emit_native_table[] = {
 #define NATIVE_EMITTER(f) emit_native_xtensa_##f
 #elif MICROPY_EMIT_XTENSAWIN
 #define NATIVE_EMITTER(f) emit_native_xtensawin_##f
+#elif MICROPY_EMIT_M68K
+#define NATIVE_EMITTER(f) emit_native_m68k_##f
 #else
 #error "unknown native emitter"
 #endif
@@ -143,6 +146,7 @@ STATIC const emit_inline_asm_method_table_t *emit_asm_table[] = {
     &emit_inline_thumb_method_table,
     &emit_inline_xtensa_method_table,
     NULL,
+    &emit_inline_m68k_method_table,
 };
 
 #elif MICROPY_EMIT_INLINE_ASM
@@ -153,6 +157,9 @@ STATIC const emit_inline_asm_method_table_t *emit_asm_table[] = {
 #elif MICROPY_EMIT_INLINE_XTENSA
 #define ASM_DECORATOR_QSTR MP_QSTR_asm_xtensa
 #define ASM_EMITTER(f) emit_inline_xtensa_##f
+#elif MICROPY_EMIT_INLINE_M68K
+#define ASM_DECORATOR_QSTR MP_QSTR_asm_m68k
+#define ASM_EMITTER(f) emit_inline_m68k_##f
 #else
 #error "unknown asm emitter"
 #endif
@@ -846,6 +853,8 @@ STATIC bool compile_built_in_decorator(compiler_t *comp, size_t name_len, mp_par
     } else if (attr == MP_QSTR_asm_thumb) {
         *emit_options = MP_EMIT_OPT_ASM;
     } else if (attr == MP_QSTR_asm_xtensa) {
+        *emit_options = MP_EMIT_OPT_ASM;
+    } else if (attr == MP_QSTR_asm_m68k) {
         *emit_options = MP_EMIT_OPT_ASM;
     #else
     } else if (attr == ASM_DECORATOR_QSTR) {

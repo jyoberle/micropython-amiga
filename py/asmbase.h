@@ -34,6 +34,9 @@
 
 typedef struct _mp_asm_base_t {
     uint8_t pass;
+#if MICROPY_EMIT_INLINE_M68K
+    bool endian;
+#endif
 
     // Set to true using mp_asm_base_suppress_code() if the code generator
     // should suppress emitted code due to it being dead code.

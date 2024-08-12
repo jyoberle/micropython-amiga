@@ -32,6 +32,10 @@
 #include "py/gc.h"
 #include "py/mphal.h"
 
+#if MICROPY_OPTION_AMIGA
+#include "shared/runtime/interrupt_char.h"
+#endif
+
 #if MICROPY_PY_MICROPYTHON
 
 // Various builtins specific to MicroPython runtime,

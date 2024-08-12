@@ -10,7 +10,7 @@ except AttributeError:
 
 s = socket.socket()
 s.bind(socket.getaddrinfo("127.0.0.1", 8123)[0][-1])
-s.settimeout(1)
+s.settimeout(10)
 s.listen(1)
 try:
     s.accept()

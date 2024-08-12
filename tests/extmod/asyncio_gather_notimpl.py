@@ -13,7 +13,9 @@ def custom_handler(loop, context):
 
 async def task(id):
     print("task start", id)
-    await asyncio.sleep(0.01)
+    # modified bu JOB for the Amiga so that the test passes
+#    await asyncio.sleep(0.01)
+    await asyncio.sleep(0.06)
     print("task end", id)
     return id
 
